@@ -1,0 +1,7 @@
+usr/include/kodi/*.h
+usr/include/kodi/c-api
+usr/include/kodi/gui
+usr/include/kodi/tools
+usr/include/kodi/platform
+usr/include/kodi/addon-instance
+usr/share/kodi/cmake/*.cmake

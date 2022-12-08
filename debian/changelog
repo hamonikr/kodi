@@ -1,0 +1,7 @@
+kodi (6:19.4+1hamonikr) taebaek; urgency=medium
+
+  [ Kevin Kim ]
+  * Merge from git20220304.1555-e12e66e019-0~focal kodi ppa
+   - Add Korean fonts
+
+ -- HamoniKR <pkg@hamonikr.org>  Thu, 08 Dec 2022 23:09:11 +0900 
