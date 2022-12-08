@@ -2,6 +2,8 @@
 
 KODI Media Player
 
+![screenshot](./screenshot.png)
+
 ### how to build debian package from source
 
 하모니카 6.0 에서 빌드 시 
@@ -22,4 +24,11 @@ dpkg-buildpackage
 
 # install
 sudo dpkg -i ../*.deb
+```
+
+### 한글 스킨만 사용하려면
+```
+git clone https://github.com/hamonikr/kodi.git
+
+cp kodi/addons/skin.hamonikr ~/.kodi/addons/
 ```
