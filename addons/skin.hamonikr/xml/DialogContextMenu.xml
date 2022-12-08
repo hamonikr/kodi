@@ -2,58 +2,58 @@
 <window>
 	<defaultcontrol>1000</defaultcontrol>
 	<include>dialogeffect</include>
-	<coordinates>
-		<posx>0</posx>
-		<posy>-30</posy>
-	</coordinates>
 	<controls>
-		<include>BehindDialogFadeOut</include>
-		<control type="image">
-			<posx>0</posx>
-			<posy>0</posy>
-			<width>400</width>
-			<height>60</height>
-			<texture border="5">dialog_header.png</texture>
-		</control>
-		<control type="label">
-			<description>header label</description>
-			<posx>20</posx>
-			<posy>0</posy>
-			<include>WindowTitleCommons</include>
-			<width>300</width>
-			<label>$LOCALIZE[31007]</label>
-		</control>
-		<control type="image" id="999">
-			<description>background image</description>
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>400</width>
-			<height>700</height>
-			<texture>dialog_back.png</texture>
-		</control>
+		<!--all content-->
 		<control type="group">
-			<posx>330</posx>
-			<posy>0</posy>
-			<include>DialogCloseButtonCommons</include>
-		</control>
-		<control type="grouplist" id="996">
-			<description>grouplist for context buttons</description>
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>400</width>
-			<height max="700">auto</height>
-			<itemgap>0</itemgap>
-		</control>
-		<control type="button" id="1000">
-			<description>button template</description>
-			<posx>0</posx>
-			<posy></posy>
-			<width>400</width>
-			<height>70</height>
-			<font>font25</font>
-			<align>center</align>
-			<texturefocus>list_focus.png</texturefocus>
-			<texturenofocus></texturenofocus>
+			<left>0r</left>
+			<width>405</width>
+			<include>SideBladeRight</include>
+			<visible>!Window.IsActive(shutdownmenu)</visible>
+			<!--close window button-->
+			<control type="button">
+				<left>35</left>
+				<top>0</top>
+				<width>50</width>
+				<height>25</height>
+				<label></label>
+				<font></font>
+				<onclick>PreviousMenu</onclick>
+				<texturefocus>DialogCloseButton-focus.png</texturefocus>
+				<texturenofocus>DialogCloseButton.png</texturenofocus>
+				<onleft>2</onleft>
+				<onright>2</onright>
+				<onup>2</onup>
+				<ondown>2</ondown>
+				<visible>system.getbool(input.enablemouse)</visible>
+			</control>
+			<!--title-->
+			<control type="label">
+				<left>40</left>
+				<top>15</top>
+				<width>355</width>
+				<height>60</height>
+				<font>menu.title</font>
+				<textcolor>white</textcolor>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>31065</label>
+			</control>
+			<control type="group">
+				<top>100</top>
+				<bottom>0</bottom>
+				<!--buttons grouplist-->
+				<control type="grouplist" id="996">
+					<left>40</left>
+					<width>355</width>
+					<height>100%</height>
+					<itemgap>3</itemgap>
+				</control>
+			</control>
+			<!--button appearance-->
+			<control type="button" id="1000">
+				<include>ButtonCommonValues</include>
+				<align>center</align>
+			</control>
 		</control>
 	</controls>
 </window>

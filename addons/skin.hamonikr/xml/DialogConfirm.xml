@@ -1,58 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<onload condition="Window.IsVisible(yesnodialog)">SetFocus(10)</onload>
-	<coordinates>
-		<posx>290</posx>
-		<posy>300</posy>
-	</coordinates>
-	<include>16x9_xPos_Relocation</include>
-	<include>dialogeffect</include>
+	<include>CheckSkinColorsSet</include>
 	<controls>
-		<include>BehindDialogFadeOut</include>
-		<control type="image">
-			<posx>0</posx>
-			<posy>0</posy>
-			<width>700</width>
-			<height>60</height>
-			<texture border="5">dialog_header.png</texture>
-		</control>
+		<!--all content-->
 		<control type="group">
-			<posx>630</posx>
-			<posy>0</posy>
-			<include>DialogCloseButtonCommons</include>
+			<height>340</height>
+			<centertop>50%</centertop>
+			<animation effect="slide" start="0,915" end="0,0" time="300" tween="quadratic" easing="out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,-915" time="400" tween="quadratic" easing="out">WindowClose</animation>
+			<!--title bars and backgrounds-->
+			<include content="DynamicDialogBackground">
+				<param name="dialog-height" value="340" />
+				<param name="glow-height" value="420" />
+				<param name="title-height" value="90" />
+				<param name="buttonbar-visible" value="true" />
+				<param name="buttonbar-top" value="270" />
+				<param name="buttonbar-height" value="70" />
+			</include>
+			<!--close button-->
+			<control type="button">
+				<description>Close Window button</description>
+				<left>5</left>
+				<width>50</width>
+				<height>25</height>
+				<label></label>
+				<font></font>
+				<onclick>PreviousMenu</onclick>
+				<texturefocus>DialogCloseButton-focus.png</texturefocus>
+				<texturenofocus>DialogCloseButton.png</texturenofocus>
+				<onleft>9000</onleft>
+				<onright>9000</onright>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<visible>system.getbool(input.enablemouse)</visible>
+			</control>
+			<!--title-->
+			<control type="label" id="1">
+				<centerleft>50%</centerleft>
+				<top>15</top>
+				<width>1800</width>
+				<height>60</height>
+				<font>menu.title</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<label></label>
+			</control>
+			<!--message-->
+			<control type="textbox" id="9">
+				<!--9-->
+				<centerleft>50%</centerleft>
+				<top>90</top>
+				<width>1800</width>
+				<height>150</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label></label>
+				<font>label</font>
+				<textcolor>$INFO[Skin.String(color.text)]</textcolor>
+				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
+			</control>
+			<!--progress bar-->
+			<control type="progress" id="20">
+				<centerleft>50%</centerleft>
+				<top>240</top>
+				<width>750</width>
+				<height>7</height>
+				<info>System.Progressbar</info>
+			</control>
+			<!--buttons-->
+			<control type="grouplist" id="9000">
+				<centerleft>50%</centerleft>
+				<top>65r</top>
+				<width>600</width>
+				<height>60</height>
+				<orientation>horizontal</orientation>
+				<align>justify</align>
+				<!--yes button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="11" />
+					<param name="button-width" value="140" />
+					<param name="button-texture" value="yesbutton" />
+					<param name="button-onleft" value="12" />
+					<param name="button-onright" value="10" />
+				</include>
+				<!--no button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="10" />
+					<param name="button-width" value="140" />
+					<param name="button-texture" value="nobutton" />
+					<param name="button-onleft" value="11" />
+					<param name="button-onright" value="12" />
+				</include>
+				<!--custom button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="12" />
+					<param name="button-width" value="180" />
+					<param name="button-texture" value="browsebutton" />
+					<param name="button-onleft" value="10" />
+					<param name="button-onright" value="11" />
+				</include>
+			</control>
 		</control>
-		<control type="label" id="1">
-			<description>header label</description>
-			<posx>20</posx>
-			<posy>0</posy>
-			<include>WindowTitleCommons</include>
-			<width>600</width>
-		</control>
-		<control type="image">
-			<description>Background</description>
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>700</width>
-			<height>250</height>
-			<texture>dialog_back.png</texture>
-		</control>
-		<control type="textbox" id="9">
-			<posx>20</posx>
-			<posy>72</posy>
-			<width>660</width>
-			<height>138</height>
-			<label></label>
-			<font>font22</font>
-		</control>
-		<control type="progress" id="20">
-			<description>Progressbar</description>
-			<posx>20</posx>
-			<posy>210</posy>
-			<width>660</width>
-			<height>10</height>
-			<info>System.Progressbar</info>
-		</control>
-		<include condition="!Window.IsVisible(yesnodialog)">YesNoExtendedButtons</include>
-		<include condition="Window.IsVisible(yesnodialog)">YesNoDefaultButtons</include>
 	</controls>
 </window>

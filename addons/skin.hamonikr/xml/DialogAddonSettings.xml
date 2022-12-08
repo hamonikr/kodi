@@ -1,200 +1,236 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol></defaultcontrol>
-	<include>16x9_xPos_Relocation</include>
-	<include>Window_OpenClose_Animation_Zoom</include>
-	<coordinates>
-		<posx>15</posx>
-		<posy>30</posy>
-	</coordinates>
+	<defaultcontrol always="true">9</defaultcontrol>
 	<controls>
-		<include>BehindDialogFadeOut</include>
-		<control type="image">
-			<posx>0</posx>
-			<posy>0</posy>
-			<width>1250</width>
-			<height>60</height>
-			<texture border="5">dialog_header.png</texture>
-		</control>
-		<control type="label" id="2">
-			<description>header label</description>
-			<posx>20</posx>
-			<posy>0</posy>
-			<include>WindowTitleCommons</include>
-			<width>1160</width>
-			<label></label>
-		</control>
+		<!--all content-->
 		<control type="group">
-			<posx>1180</posx>
-			<posy>0</posy>
-			<include>DialogCloseButtonCommons</include>
-		</control>
-		<control type="image">
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>1250</width>
-			<height>840</height>
-			<texture>dialog_back.png</texture>
-		</control>
-		<control type="group">
-			<posx>20</posx>
-			<posy>70</posy>
-			<control type="button">
-				<description>left Arrow</description>
-				<posx>0</posx>
-				<posy>10</posy>
-				<width>24</width>
-				<height>40</height>
-				<texturefocus>arrow_left.png</texturefocus>
-				<texturenofocus>arrow_left.png</texturenofocus>
-				<onclick>Control.Move(3,-1)</onclick>
-				<include>VisibleFadeEffect</include>
-				<visible>Container(3).HasPrevious</visible>
-			</control>
-			<control type="button" id="11001">
-				<description>right Arrow</description>
-				<posx>1170</posx>
-				<posy>10</posy>
-				<width>24</width>
-				<height>40</height>
-				<texturefocus>arrow_right.png</texturefocus>
-				<texturenofocus>arrow_right.png</texturenofocus>
-				<onclick>Control.Move(3,1)</onclick>
-				<include>VisibleFadeEffect</include>
-				<visible>Container(3).HasNext</visible>
-			</control>
-		</control>
-		<control type="grouplist" id="3">
-			<description>button area</description>
-			<posx>60</posx>
-			<posy>70</posy>
-			<width>1130</width>
-			<height>60</height>
-			<itemgap>5</itemgap>
-			<align>center</align>
-			<orientation>horizontal</orientation>
-			<onleft>3</onleft>
-			<onright>3</onright>
-			<onup>5</onup>
-			<ondown>5</ondown>
-		</control>
-		<control type="image">
-			<posx>0</posx>
-			<posy>140</posy>
-			<width>1250</width>
-			<height>554</height>
-			<texture colordiffuse="40000000">panel.png</texture>
-		</control>
-		<control type="grouplist" id="5">
-			<description>control area</description>
-			<posx>0</posx>
-			<posy>140</posy>
-			<width>1250</width>
-			<height>554</height>
-			<itemgap>-1</itemgap>
-			<pagecontrol>30</pagecontrol>
-			<onup>3</onup>
-			<ondown>9001</ondown>
-			<onleft>5</onleft>
-			<onright>30</onright>
-		</control>
-		<control type="button" id="10">
-			<description>Default Category Button</description>
-			<width>200</width>
-			<include>ButtonInfoDialogsCommonValues</include>
-		</control>
-		<control type="button" id="7">
-			<description>Default Button</description>
-			<posx>0</posx>
-			<posy>0</posy>
-			<height>70</height>
-			<font>font25</font>
-		</control>
-		<control type="radiobutton" id="8">
-			<description>Default RadioButton</description>
-			<posx>0</posx>
-			<posy>0</posy>
-			<height>70</height>
-			<font>font25</font>
-		</control>
-		<control type="spincontrolex" id="9">
-			<description>Default SpinControlex</description>
-			<posx>0</posx>
-			<posy>0</posy>
-			<height>70</height>
-			<font>font25</font>
-			<aligny>center</aligny>
-			<reverse>yes</reverse>
-		</control>
-		<control type="image" id="11">
-			<description>separator image</description>
-			<height>5</height>
-			<texture border="2">separator.png</texture>
-		</control>
-		<control type="label" id="14">
-			<posx>20</posx>
-			<height>50</height>
-			<font>font20_title</font>
-			<label></label>
-			<align>center</align>
-			<aligny>center</aligny>
-		</control>
-		<control type="sliderex" id="13">
-			<description>Default Slider</description>
-			<height>70</height>
-			<font>font25</font>
-			<textwidth>550</textwidth>
-		</control>
-		<control type="edit" id="12">
-			<height>70</height>
-			<font>font25</font>
-		</control>
-		<control type="textbox" id="6">
-			<description>description area</description>
-			<left>50</left>
-			<top>710</top>
-			<width>1150</width>
-			<height>100</height>
-			<font>font24</font>
-			<align>justify</align>
-			<textcolor>blue</textcolor>
-			<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
-		</control>
-		<control type="grouplist" id="9001">
-			<posx>20</posx>
-			<posy>830</posy>
+			<centerleft>50%</centerleft>
 			<width>1210</width>
-			<height>60</height>
-			<itemgap>5</itemgap>
-			<align>center</align>
-			<orientation>horizontal</orientation>
-			<onleft>9001</onleft>
-			<onright>9001</onright>
-			<onup>5</onup>
-			<ondown>3</ondown>
-			<control type="button" id="28">
-				<description>OK Button</description>
-				<width>200</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>186</label>
+			<animation effect="slide" start="1925,0" end="0,0" time="400" tween="quadratic" easing="out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="1925,0" time="400" tween="quadratic" easing="out">WindowClose</animation>
+			<animation effect="slide" start="0,0" end="-35,0" time="300" condition="Window.IsActive(ShutdownMenu) + !String.IsEqual(Skin.AspectRatio,21:9)">Conditional</animation>
+			<!--title bars and backgrounds-->
+			<include content="DynamicDialogBackground">
+				<param name="dialog-width" value="1210" />
+				<param name="glow-width" value="1290" />
+				<param name="sidebar-visible" value="true" />
+				<param name="sidebar-width" value="340" />
+				<param name="buttonbar-visible" value="true" />
+				<param name="buttonbar-height" value="70" />
+			</include>
+			<!--close window button-->
+			<control type="button">
+				<left>5</left>
+				<top>0</top>
+				<width>50</width>
+				<height>25</height>
+				<label></label>
+				<font></font>
+				<onclick>PreviousMenu</onclick>
+				<texturefocus>DialogCloseButton-focus.png</texturefocus>
+				<texturenofocus>DialogCloseButton.png</texturenofocus>
+				<onleft>3</onleft>
+				<onright>3</onright>
+				<onup>3</onup>
+				<ondown>3</ondown>
+				<visible>system.getbool(input.enablemouse)</visible>
 			</control>
-			<control type="button" id="29">
-				<description>Cancel Button</description>
-				<width>200</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>222</label>
-			</control>
-			<control type="button" id="30">
-				<description>Defaults Button</description>
-				<width>200</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>409</label>
-			</control>
-			<control type="button" id="20">
-				<description>Level Button</description>
-				<width>200</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<onclick>SettingsLevelChange</onclick>
+			<!--main content-->
+			<control type="group">
+				<!--title-->
+				<control type="label" id="2">
+					<left>45</left>
+					<top>25</top>
+					<width>1120</width>
+					<height>60</height>
+					<font>info.title</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<textcolor>white</textcolor>
+					<label></label>
+				</control>
+				<!--left buttons-->
+				<control type="grouplist" id="3">
+					<description>button area</description>
+					<left>10</left>
+					<top>120</top>
+					<bottom>120</bottom>
+					<width>350</width>
+					<itemgap>5</itemgap>
+					<pagecontrol>61</pagecontrol>
+					<onleft>61</onleft>
+					<onright>5</onright>
+					<onup>3</onup>
+					<ondown>20</ondown>
+				</control>
+				<!--settings level-->
+				<control type="button" id="20">
+					<left>10</left>
+					<top>940</top>
+					<height>60</height>
+					<width>320</width>
+					<texturefocus colordiffuse="white">backgrounds/white.png</texturefocus>
+					<textcolor>white</textcolor>
+					<focusedcolor>$INFO[Skin.String(color.900)]</focusedcolor>
+					<align>right</align>
+					<include>ButtonCommonValues</include>
+					<onleft>5</onleft>
+					<onright>5</onright>
+					<onup>3</onup>
+					<ondown>3</ondown>
+					<onclick>SettingsLevelChange</onclick>
+				</control>
+				<!--settings level label (no focus)-->
+				<control type="label">
+					<left>25</left>
+					<top>940</top>
+					<height>60</height>
+					<width>305</width>
+					<label>31142</label>
+					<font>button</font>
+					<textcolor>white</textcolor>
+					<align>left</align>
+					<aligny>center</aligny>
+					<visible>!Control.HasFocus(20)</visible>
+				</control>
+				<!--settings level label (focus)-->
+				<control type="label">
+					<left>25</left>
+					<top>940</top>
+					<height>60</height>
+					<width>305</width>
+					<label>31142</label>
+					<font>button</font>
+					<textcolor>$INFO[Skin.String(color.900)]</textcolor>
+					<align>left</align>
+					<aligny>center</aligny>
+					<visible>Control.HasFocus(20)</visible>
+				</control>
+				<!--scrollbar-->
+				<control type="scrollbar" id="61">
+					<left>-16</left>
+					<top>120</top>
+					<height>880</height>
+					<onleft>60</onleft>
+					<onright>3</onright>
+				</control>
+				<control type="grouplist" id="5">
+					<description>control area</description>
+					<left>350</left>
+					<top>120</top>
+					<bottom>120</bottom>
+					<width>850</width>
+					<itemgap>5</itemgap>
+					<pagecontrol>60</pagecontrol>
+					<onup>5</onup>
+					<ondown>9001</ondown>
+					<onleft>3</onleft>
+					<onright>60</onright>
+				</control>
+				<!--scrollbar-->
+				<control type="scrollbar" id="60">
+					<left>1215</left>
+					<top>120</top>
+					<height>880</height>
+					<onleft>5</onleft>
+					<onright>61</onright>
+				</control>
+				<!--button-->
+				<control type="button" id="7">
+					<left>0</left>
+					<top>0</top>
+					<invalidcolor>invalid</invalidcolor>
+				</control>
+				<!--radio button-->
+				<control type="radiobutton" id="8">
+					<left>0</left>
+					<top>0</top>
+				</control>
+				<!--spin control-->
+				<control type="spincontrolex" id="9">
+					<left>0</left>
+					<top>0</top>
+					<reverse>yes</reverse>
+				</control>
+				<!--category buttons-->
+				<control type="button" id="10">
+					<width>320</width>
+					<texturefocus colordiffuse="white">backgrounds/white.png</texturefocus>
+					<textcolor>white</textcolor>
+					<focusedcolor>$INFO[Skin.String(color.900)]</focusedcolor>
+					<include>ButtonCommonValues</include>
+				</control>
+				<!--seperator-->
+				<control type="image" id="11">
+					<height>0</height>
+					<texture></texture>
+					<visible>false</visible>
+				</control>
+				<!--edit-->
+				<control type="edit" id="12">
+					<left>0</left>
+					<top>0</top>
+				</control>
+				<!--slider control-->
+				<control type="sliderex" id="13">
+					<left>0</left>
+					<top>0</top>
+				</control>
+				<!--label-->
+				<control type="label" id="14">
+					<height>60</height>
+					<label></label>
+					<font>button.bold</font>
+					<textcolor>$INFO[Skin.String(color.500)]</textcolor>
+					<textoffsetx>5</textoffsetx>
+					<aligny>center</aligny>
+				</control>
+				<!--bottom buttons-->
+				<control type="grouplist" id="9001">
+					<left>117</left>
+					<top>65r</top>
+					<width>1000</width>
+					<height>60</height>
+					<align>justify</align>
+					<orientation>horizontal</orientation>
+					<onleft>9001</onleft>
+					<onright>9001</onright>
+					<onup>5</onup>
+					<ondown>5</ondown>
+					<!--ok button-->
+					<include content="AnimatedCircleButtonGroup">
+						<param name="button-id" value="28" />
+						<param name="button-width" value="130" />
+						<param name="button-texture" value="yesbutton" />
+						<param name="button-label" value="186" />
+						<param name="button-onup" value="5" />
+						<param name="button-ondown" value="5" />
+						<param name="button-onleft" value="30" />
+						<param name="button-onright" value="29" />
+					</include>
+					<!--cancel button-->
+					<include content="AnimatedCircleButtonGroup">
+						<param name="button-id" value="29" />
+						<param name="button-width" value="180" />
+						<param name="button-texture" value="nobutton" />
+						<param name="button-label" value="222" />
+						<param name="button-onup" value="5" />
+						<param name="button-ondown" value="5" />
+						<param name="button-onleft" value="28" />
+						<param name="button-onright" value="30" />
+					</include>
+					<!--default button-->
+					<include content="AnimatedCircleButtonGroup">
+						<param name="button-id" value="30" />
+						<param name="button-width" value="180" />
+						<param name="button-texture" value="refreshbutton" />
+						<param name="button-label" value="409" />
+						<param name="button-onup" value="5" />
+						<param name="button-ondown" value="5" />
+						<param name="button-onleft" value="29" />
+						<param name="button-onright" value="28" />
+					</include>
+				</control>
 			</control>
 		</control>
 	</controls>

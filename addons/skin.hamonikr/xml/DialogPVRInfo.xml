@@ -1,223 +1,325 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
-	<include>16x9_xPos_Relocation</include>
-	<include>Window_OpenClose_Animation_Zoom</include>
-	<coordinates>
-		<posx>140</posx>
-		<posy>130</posy>
-	</coordinates>
 	<controls>
-		<include>BehindDialogFadeOut</include>
-		<control type="image">
-			<posx>0</posx>
-			<posy>0</posy>
-			<width>1000</width>
-			<height>60</height>
-			<texture border="5">dialog_header.png</texture>
-		</control>
-		<control type="label">
-			<description>header label</description>
-			<posx>20</posx>
-			<posy>0</posy>
-			<include>WindowTitleCommons</include>
-			<width>910</width>
-			<label>$INFO[ListItem.Title]</label>
-		</control>
+		<!--all content-->
 		<control type="group">
-			<posx>930</posx>
-			<posy>0</posy>
-			<include>DialogCloseButtonCommons</include>
-		</control>
-		<control type="image">
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>1000</width>
-			<height>640</height>
-			<texture>dialog_back.png</texture>
-		</control>
-		<control type="group">
-			<posy>70</posy>
-			<posx>20</posx>
-			<include>VisibleFadeEffect</include>
-			<control type="image">
-				<posx>0</posx>
-				<posy>0</posy>
-				<width>260</width>
-				<height>360</height>
-				<aspectratio>keep</aspectratio>
-				<texture background="true">$INFO[ListItem.Icon]</texture>
-			</control>
-			<control type="textbox" id="400">
-				<description>Description</description>
-				<posx>280</posx>
-				<posy>0</posy>
-				<width>650</width>
-				<height>375</height>
-				<font>font20</font>
-				<pagecontrol>60</pagecontrol>
-				<label>$INFO[ListItem.Plot]</label>
-			</control>
-			<control type="scrollbar" id="60">
-				<posx>942</posx>
-				<posy>30</posy>
-				<width>26</width>
-				<height>315</height>
-				<texturesliderbackground colordiffuse="30FFFFFF">white.png</texturesliderbackground>
-				<texturesliderbar colordiffuse="grey">white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="blue">white.png</texturesliderbarfocus>
-				<textureslidernib>blank.png</textureslidernib>
-				<textureslidernibfocus>blank.png</textureslidernibfocus>
-				<onleft>3</onleft>
-				<onright>3</onright>
-				<ondown>60</ondown>
-				<onup>60</onup>
-				<showonepage>false</showonepage>
-				<orientation>vertical</orientation>
-				<animation effect="fade" time="150">Visible</animation>
-				<animation effect="fade" time="150">Hidden</animation>
-			</control>
-			<control type="image">
-				<posx>0</posx>
-				<posy>390</posy>
-				<width>960</width>
-				<height>2</height>
-				<texture border="2">separator.png</texture>
-			</control>
-			<control type="list" id="49">
-				<posx>0</posx>
-				<posy>400</posy>
-				<width>960</width>
-				<height>330</height>
-				<onleft>49</onleft>
-				<onright>49</onright>
-				<onup>9000</onup>
-				<ondown>61</ondown>
-				<pagecontrol></pagecontrol>
-				<scrolltime>200</scrolltime>
-				<itemlayout height="30">
-					<control type="label">
-						<posx>0</posx>
-						<posy>0</posy>
-						<width>200</width>
-						<height>30</height>
-						<font>font20_title</font>
-						<align>right</align>
-						<aligny>center</aligny>
-						<selectedcolor>selected</selectedcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-					<control type="label">
-						<posx>210</posx>
-						<posy>0</posy>
-						<width>750</width>
-						<height>30</height>
-						<font>font20</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<selectedcolor>white</selectedcolor>
-						<label>$INFO[ListItem.Label2]</label>
-					</control>
-				</itemlayout>
-				<focusedlayout height="30">
-					<control type="label">
-						<posx>0</posx>
-						<posy>0</posy>
-						<width>200</width>
-						<height>30</height>
-						<font>font20_title</font>
-						<align>right</align>
-						<aligny>center</aligny>
-						<selectedcolor>selected</selectedcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-					<control type="label">
-						<posx>210</posx>
-						<posy>0</posy>
-						<width>750</width>
-						<height>30</height>
-						<font>font20</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<selectedcolor>white</selectedcolor>
-						<label>$INFO[ListItem.Label2]</label>
-					</control>
-				</focusedlayout>
-				<content>
-					<item>
-						<label>$LOCALIZE[369]:</label>
-						<label2>$INFO[ListItem.Title]</label2>
-						<onclick>noop</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[142]</label>
-						<label2>$INFO[ListItem.StartTime] - $INFO[ListItem.EndTime] ($INFO[ListItem.StartDate])</label2>
-						<onclick>noop</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[180]:</label>
-						<label2>$INFO[ListItem.Duration]</label2>
-						<onclick>noop</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[19148]:</label>
-						<label2>$INFO[ListItem.ChannelName]</label2>
-						<onclick>noop</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[135]:</label>
-						<label2>$INFO[ListItem.Genre]</label2>
-						<onclick>noop</onclick>
-					</item>
-				</content>
-			</control>
-		</control>
-		<control type="grouplist" id="9000">
-			<posx>0</posx>
-			<posy>630</posy>
-			<width>1000</width>
-			<height>60</height>
-			<itemgap>10</itemgap>
-			<align>center</align>
-			<orientation>horizontal</orientation>
-			<defaultcontrol always="true">5</defaultcontrol>
-			<onleft>9000</onleft>
-			<onright>9000</onright>
-			<onup>50</onup>
-			<ondown>49</ondown>
-			<control type="button" id="5">
-				<description>Switch channel</description>
-				<width>230</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>19165</label>
-				<visible>Window.IsActive(PVRGuideInfo)</visible>
-			</control>
-			<control type="button" id="8">
-				<description>Play recording</description>
-				<width>230</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>19687</label>
-				<visible>Window.IsActive(PVRRecordingInfo)</visible>
-			</control>
-			<control type="button" id="6">
-				<description>Record</description>
-				<width>230</width>
-				<include>ButtonInfoDialogsCommonValues</include>
+			<centerleft>50%</centerleft>
+			<width>1210</width>
+			<visible>!Window.IsVisible(FileBrowser)</visible>
+			<animation effect="slide" start="1925,0" end="0,0" time="400" tween="quadratic" easing="out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="-1925,0" time="400" tween="quadratic" easing="out">WindowClose</animation>
+			<animation effect="slide" start="-1925,0" end="0,0" time="400" tween="quadratic" easing="out">Visible</animation>
+			<animation effect="slide" start="0,0" end="-1925,0" time="400" tween="quadratic" easing="out">Hidden</animation>
+			<animation effect="slide" start="0,0" end="-35,0" time="300" condition="Window.IsActive(ShutdownMenu) + !String.IsEqual(Skin.AspectRatio,21:9)">Conditional</animation>
+			<!--title bars and backgrounds-->
+			<include content="DynamicDialogBackground">
+				<param name="dialog-width" value="1210" />
+				<param name="glow-width" value="1290" />
+				<param name="subtitle-visible" value="true" />
+				<param name="subtitle-height" value="75" />
+				<param name="buttonbar-visible" value="true" />
+				<param name="buttonbar-height" value="70" />
+			</include>
+			<!--close window button-->
+			<control type="button">
+				<left>5</left>
+				<top>0</top>
+				<width>50</width>
+				<height>25</height>
 				<label></label>
-				<visible>Window.IsActive(PVRGuideInfo)</visible>
+				<font></font>
+				<onclick>PreviousMenu</onclick>
+				<texturefocus>DialogCloseButton-focus.png</texturefocus>
+				<texturenofocus>DialogCloseButton.png</texturenofocus>
+				<onleft>10</onleft>
+				<onright>10</onright>
+				<onup>10</onup>
+				<ondown>10</ondown>
+				<visible>system.getbool(input.enablemouse)</visible>
 			</control>
-			<control type="button" id="4">
-				<description>Find similar</description>
-				<width>230</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>19003</label>
-				<visible>Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)</visible>
+			<!--main content-->
+			<control type="group">
+				<!--title-->
+				<control type="label">
+					<left>45</left>
+					<top>25</top>
+					<width>1022</width>
+					<height>60</height>
+					<font>info.title</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<textcolor>white</textcolor>
+					<label>$LOCALIZE[19047]</label>
+				</control>
+				<!--secondary title-->
+				<control type="label">
+					<left>60</left>
+					<top>115</top>
+					<width>1022</width>
+					<height>60</height>
+					<font>breadcrumb</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<textcolor>white</textcolor>
+					<label>$INFO[ListItem.Title]</label>
+				</control>
+				<control type="list" id="49">
+					<left>60</left>
+					<top>210</top>
+					<width>855</width>
+					<height>330</height>
+					<onleft>49</onleft>
+					<onright>49</onright>
+					<onup>9000</onup>
+					<ondown>60</ondown>
+					<pagecontrol></pagecontrol>
+					<scrolltime>200</scrolltime>
+					<itemlayout height="30">
+						<control type="label">
+							<left>20</left>
+							<top>0</top>
+							<width>160</width>
+							<height>30</height>
+							<font>secondary.info</font>
+							<align>left</align>
+							<aligny>center</aligny>
+							<textcolor>$INFO[Skin.String(color.500)]</textcolor>
+							<selectedcolor>$INFO[Skin.String(color.500)]</selectedcolor>
+							<info>ListItem.Label</info>
+						</control>
+						<control type="label">
+							<left>175</left>
+							<top>0</top>
+							<width>465</width>
+							<height>30</height>
+							<font>secondary.info</font>
+							<align>left</align>
+							<aligny>center</aligny>
+							<textcolor>$INFO[Skin.String(color.text)]</textcolor>
+							<selectedcolor>$INFO[Skin.String(color.text)]</selectedcolor>
+							<info>ListItem.Label2</info>
+						</control>
+					</itemlayout>
+					<focusedlayout height="30">
+						<control type="image">
+							<left>-3</left>
+							<top>6</top>
+							<width>20</width>
+							<height>20</height>
+							<visible>Control.HasFocus(49)</visible>
+							<texture colordiffuse="$INFO[Skin.String(color.500)]">buttons/buttoncircle.png</texture>
+						</control>
+						<control type="label">
+							<left>20</left>
+							<top>0</top>
+							<width>160</width>
+							<height>30</height>
+							<font>secondary.info</font>
+							<align>left</align>
+							<aligny>center</aligny>
+							<textcolor>$INFO[Skin.String(color.500)]</textcolor>
+							<selectedcolor>$INFO[Skin.String(color.500)]</selectedcolor>
+							<info>ListItem.Label</info>
+						</control>
+						<control type="label">
+							<left>175</left>
+							<top>0</top>
+							<width>465</width>
+							<height>30</height>
+							<font>secondary.info</font>
+							<align>left</align>
+							<aligny>center</aligny>
+							<textcolor>$INFO[Skin.String(color.text)]</textcolor>
+							<selectedcolor>$INFO[Skin.String(color.text)]</selectedcolor>
+							<info>ListItem.Label2</info>
+							<scroll>true</scroll>
+						</control>
+					</focusedlayout>
+					<content>
+						<item>
+							<label>$LOCALIZE[21442]:</label>
+							<label2>$INFO[ListItem.EpisodeName]</label2>
+							<visible>!String.IsEmpty(ListItem.EpisodeName)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[20373]:</label>
+							<label2>$INFO[ListItem.Season]</label2>
+							<visible>!String.IsEmpty(ListItem.Season)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[20359]:</label>
+							<label2>$INFO[ListItem.Episode]</label2>
+							<visible>!String.IsEmpty(ListItem.Episode)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[19148]:</label>
+							<label2>$INFO[ListItem.ChannelName]</label2>
+						</item>
+						<item>
+							<label>$LOCALIZE[142]</label>
+							<label2>$INFO[ListItem.StartTime] - $INFO[ListItem.EndTime] ($INFO[ListItem.StartDate])</label2>
+						</item>
+						<item>
+							<label>$LOCALIZE[180]:</label>
+							<label2>$INFO[ListItem.Duration]</label2>
+						</item>
+						<item>
+							<label>$LOCALIZE[515]:</label>
+							<label2>$INFO[ListItem.Genre]</label2>
+						</item>
+						<item>
+							<label>$LOCALIZE[20417]:</label>
+							<label2>$INFO[ListItem.Writer]</label2>
+							<visible>!String.IsEmpty(ListItem.Writer)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[20339]:</label>
+							<label2>$INFO[ListItem.Director]</label2>
+							<visible>!String.IsEmpty(ListItem.Director)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[206]:</label>
+							<label2>$INFO[ListItem.Cast]</label2>
+							<visible>!String.IsEmpty(ListItem.Cast)</visible>
+						</item>
+					</content>
+				</control>
+				<control type="label">
+					<left>490</left>
+					<top>540</top>
+					<width>600</width>
+					<height>45</height>
+					<font>secondary.info.light</font>
+					<textcolor>$INFO[Skin.String(color.text)]</textcolor>
+					<scroll>true</scroll>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>[COLOR=$INFO[Skin.String(color.500)]]$LOCALIZE[207][/COLOR]$INFO[Container(400).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(400).NumPages,/, )]</label>
+				</control>
+				<control type="spincontrol" id="60">
+					<description>Next page button</description>
+					<left>1090</left>
+					<top>547</top>
+					<subtype>page</subtype>
+					<font></font>
+					<onleft>60</onleft>
+					<onright>60</onright>
+					<ondown>9000</ondown>
+					<onup>49</onup>
+					<textcolor></textcolor>
+					<showonepage>true</showonepage>
+					<textureupfocus colordiffuse="$INFO[Skin.String(color.500)]">scroll-up-2.png</textureupfocus>
+					<texturedownfocus colordiffuse="$INFO[Skin.String(color.500)]">scroll-down-2.png</texturedownfocus>
+				</control>
+				<control type="textbox" id="400">
+					<description>Plot value</description>
+					<left>60</left>
+					<top>587</top>
+					<width>1090</width>
+					<height>400</height>
+					<font>label</font>
+					<align>justify</align>
+					<textcolor>$INFO[Skin.String(color.text)]</textcolor>
+					<pagecontrol>60</pagecontrol>
+					<label fallback="31017">$INFO[ListItem.Plot]</label>
+				</control>
 			</control>
-			<control type="button" id="11">
-				<description>Reminders</description>
-				<width>230</width>
-				<include>ButtonInfoDialogsCommonValues</include>
-				<label>826</label>
+			<!--bottom buttons-->
+			<control type="grouplist" id="9000">
+				<centerleft>50%</centerleft>
+				<top>65r</top>
+				<width>1210</width>
+				<height>60</height>
+				<align>justify</align>
+				<orientation>horizontal</orientation>
+				<onleft>9000</onleft>
+				<onright>9000</onright>
+				<onup>60</onup>
+				<ondown>49</ondown>
+				<!--switch button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="5" />
+					<param name="button-width" value="135" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo)" />
+					<param name="button-texture" value="refreshbutton" />
+					<param name="button-label" value="19165" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="4" />
+					<param name="button-onright" value="10" />
+				</include>
+				<!--start button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="10" />
+					<param name="button-width" value="205" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo)" />
+					<param name="button-texture" value="trailerbutton" />
+					<param name="button-label" value="19190" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="5" />
+					<param name="button-onright" value="8" />
+				</include>
+				<!--play button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="8" />
+					<param name="button-width" value="210" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)" />
+					<param name="button-texture" value="playbutton" />
+					<param name="button-label" value="19687" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="10" />
+					<param name="button-onright" value="6" />
+				</include>
+				<!--record button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="6" />
+					<param name="button-width" value="140" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo)" />
+					<param name="button-texture" value="recordbutton" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="8" />
+					<param name="button-onright" value="9" />
+				</include>
+				<!--add timer button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="9" />
+					<param name="button-width" value="170" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo)" />
+					<param name="button-texture" value="timerbutton" />
+					<param name="button-label" value="19061" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="6" />
+					<param name="button-onright" value="11" />
+				</include>
+				<!--reminder button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="11" />
+					<param name="button-width" value="195" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo)" />
+					<param name="button-texture" value="reminderbutton" />
+					<param name="button-label" value="826" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="9" />
+					<param name="button-onright" value="4" />
+				</include>
+				<!--browse button-->
+				<include content="AnimatedCircleButtonGroup">
+					<param name="button-id" value="4" />
+					<param name="button-width" value="185" />
+					<param name="button-visible" value="Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)" />
+					<param name="button-texture" value="browsebutton" />
+					<param name="button-label" value="19003" />
+					<param name="button-onup" value="60" />
+					<param name="button-ondown" value="49" />
+					<param name="button-onleft" value="11" />
+					<param name="button-onright" value="5" />
+				</include>
 			</control>
 		</control>
 	</controls>

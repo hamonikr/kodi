@@ -3,288 +3,304 @@
 	<defaultcontrol>20</defaultcontrol>
 	<controls>
 		<include>CommonBackground</include>
-		<include>Header</include>
+		<include>Clock</include>
 		<include>CommonNowPlaying</include>
-		<include>Footer</include>
-		<control type="label">
-			<description>Window label</description>
-			<include>MediaWindowTitleCommons</include>
-			<label>$LOCALIZE[7]</label>
-		</control>
+		<!--breadcrumbs-->
+		<include content="DynamicLeftBreadcrumb">
+			<param name="breadcrumb1-label" value="$LOCALIZE[7]" />
+		</include>
 		<control type="group">
-			<include>16x9_xPos_Relocation</include>
-			<posx>20</posx>
-			<posy>80</posy>
-			<include>Window_OpenClose_Animation_Zoom</include>
-			<control type="label" id="101">
-				<description>current directory text label</description>
-				<posx>0</posx>
-				<posy>0</posy>
-				<width>570</width>
-				<height>40</height>
-				<font>font20_title</font>
+			<centerleft>26%</centerleft>
+			<centertop>54%</centertop>
+			<width>890</width>
+			<height>790</height>
+			<animation effect="slide" start="-1350,0" end="0,0" time="400" tween="quadratic" easing="out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="-1350,0" time="400" tween="quadratic" easing="out">WindowClose</animation>
+			<animation effect="slide" start="0,0" end="0,-50" time="0" condition="Player.HasMedia + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))">Conditional</animation>
+			<!--title bars and backgrounds-->
+			<include content="DynamicDialogBackground">
+				<param name="dialog-width" value="890" />
+				<param name="dialog-height" value="790" />
+				<param name="glow-width" value="970" />
+				<param name="glow-height" value="870" />
+				<param name="title-height" value="90" />
+				<param name="subtitle-visible" value="true" />
+				<param name="subtitle-height" value="50" />
+			</include>
+			<!--title-->
+			<control type="label">
+				<left>15</left>
+				<top>0</top>
+				<width>860</width>
+				<height>90</height>
+				<font>info.title</font>
 				<align>left</align>
-				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
 				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<label>A</label>
 			</control>
-			<control type="image">
-				<posx>-5</posx>
-				<posy>35</posy>
-				<width>580</width>
-				<height>730</height>
-				<texture>back.png</texture>
-				<bordertexture border="6">panel_shadow.png</bordertexture>
-				<bordersize>5</bordersize>
+			<!--secondary title-->
+			<control type="label" id="101">
+				<left>15</left>
+				<top>90</top>
+				<width>650</width>
+				<height>50</height>
+				<font>kai.secondary</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
 			</control>
-			<control type="panel" id="20">
-				<posx>0</posx>
-				<posy>40</posy>
-				<width>570</width>
-				<height>720</height>
-				<onleft>21</onleft>
+			<!--page info-->
+			<control type="label">
+				<left>675</left>
+				<top>90</top>
+				<width>200</width>
+				<height>50</height>
+				<font>kai.secondary</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<label>$INFO[Container(20).NumItems] $LOCALIZE[31025] ($LOCALIZE[31024] $INFO[Container(20).CurrentPage]/$INFO[Container(20).NumPages])</label>
+			</control>
+			<control type="list" id="20">
+				<left>10</left>
+				<top>150</top>
+				<width>870</width>
+				<height>630</height>
+				<onleft>30</onleft>
 				<onright>21</onright>
 				<onup>20</onup>
 				<ondown>20</ondown>
-				<viewtype label="">list</viewtype>
-				<pagecontrol>60</pagecontrol>
+				<pagecontrol>30</pagecontrol>
 				<scrolltime>200</scrolltime>
-				<itemlayout height="80" width="570">
-					<control type="image">
-						<posx>5</posx>
-						<posy>5</posy>
-						<width>70</width>
-						<height>70</height>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
-						<aspectratio>keep</aspectratio>
-					</control>
+				<itemlayout height="45" width="870">
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
-						<selectedcolor>selected</selectedcolor>
-						<align>left</align>
+						<left>60</left>
+						<top>0</top>
+						<width>590</width>
+						<font>button</font>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<selectedcolor>selected</selectedcolor>
+						<info>ListItem.Label</info>
 					</control>
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
+						<left>660</left>
+						<top>0</top>
+						<width>195</width>
+						<font>button</font>
+						<aligny>center</aligny>
 						<selectedcolor>selected</selectedcolor>
 						<align>right</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label2]</label>
+						<info>ListItem.Label2</info>
+					</control>
+					<control type="image">
+						<left>6</left>
+						<top>2</top>
+						<width>41</width>
+						<height>41</height>
+						<texture colordiffuse="$INFO[Skin.String(color.500)]">$INFO[ListItem.Icon]</texture>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
 					</control>
 				</itemlayout>
-				<focusedlayout height="80" width="570">
+				<focusedlayout height="45" width="870">
+					<!--background-->
 					<control type="image">
-						<posx>0</posx>
-						<posy>0</posy>
-						<width>570</width>
-						<height>80</height>
-						<texture>list_focus.png</texture>
-						<include>VisibleFadeEffect</include>
-					</control>
-					<control type="image">
-						<posx>5</posx>
-						<posy>5</posy>
-						<width>70</width>
-						<height>70</height>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
-						<aspectratio>keep</aspectratio>
+						<left>0</left>
+						<top>0</top>
+						<width>870</width>
+						<height>45</height>
+						<texture colordiffuse="$INFO[Skin.String(color.500)]">backgrounds/white.png</texture>
+						<animation effect="fade" start="100" end="30" time="100" condition="!Control.HasFocus(20)">Conditional</animation>
 					</control>
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
-						<selectedcolor>selected</selectedcolor>
-						<align>left</align>
+						<left>60</left>
+						<top>0</top>
+						<width>590</width>
+						<font>button</font>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+						<selectedcolor>selected</selectedcolor>
+						<info>ListItem.Label</info>
 					</control>
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
+						<left>660</left>
+						<top>0</top>
+						<width>195</width>
+						<font>button</font>
+						<aligny>center</aligny>
+						<textcolor>white</textcolor>
 						<selectedcolor>selected</selectedcolor>
 						<align>right</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label2]</label>
+						<info>ListItem.Label2</info>
+					</control>
+					<control type="image">
+						<left>6</left>
+						<top>2</top>
+						<width>41</width>
+						<height>41</height>
+						<texture colordiffuse="white">$INFO[ListItem.Icon]</texture>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
 					</control>
 				</focusedlayout>
 			</control>
-			<control type="scrollbar" id="60">
-				<posx>587</posx>
-				<posy>70</posy>
-				<width>26</width>
-				<height>660</height>
-				<texturesliderbackground colordiffuse="30FFFFFF">white.png</texturesliderbackground>
-				<texturesliderbar colordiffuse="grey">white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="blue">white.png</texturesliderbarfocus>
-				<textureslidernib>blank.png</textureslidernib>
-				<textureslidernibfocus>blank.png</textureslidernibfocus>
-				<onleft>3</onleft>
-				<onright>3</onright>
-				<ondown>60</ondown>
-				<onup>60</onup>
-				<showonepage>false</showonepage>
+			<control type="scrollbar" id="30">
+				<left>-19</left>
+				<top>150</top>
+				<height>630</height>
+				<onleft>31</onleft>
+				<onright>20</onright>
+				<ondown>20</ondown>
+				<onup>20</onup>
 				<orientation>vertical</orientation>
 			</control>
 		</control>
 		<control type="group">
-			<include>16x9_xPos_Relocation</include>
-			<include>Window_OpenClose_Animation_Zoom</include>
-			<posx>650</posx>
-			<posy>80</posy>
-			<control type="label" id="102">
-				<description>current directory text label</description>
-				<posx>570</posx>
-				<posy>0</posy>
-				<width>570</width>
-				<height>40</height>
-				<font>font20_title</font>
-				<align>right</align>
-				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
+			<centerright>26%</centerright>
+			<centertop>54%</centertop>
+			<width>890</width>
+			<height>790</height>
+			<animation effect="slide" start="1350,0" end="0,0" time="400" tween="quadratic" easing="out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="1350,0" time="400" tween="quadratic" easing="out">WindowClose</animation>
+			<animation effect="slide" start="0,0" end="0,-50" time="0" condition="Player.HasMedia + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))">Conditional</animation>
+			<!--title bars and backgrounds-->
+			<include content="DynamicDialogBackground">
+				<param name="dialog-width" value="890" />
+				<param name="dialog-height" value="790" />
+				<param name="glow-width" value="970" />
+				<param name="glow-height" value="870" />
+				<param name="title-height" value="90" />
+				<param name="subtitle-visible" value="true" />
+				<param name="subtitle-height" value="50" />
+			</include>
+			<!--title-->
+			<control type="label">
+				<left>15</left>
+				<top>0</top>
+				<width>860</width>
+				<height>90</height>
+				<font>info.title</font>
+				<align>left</align>
 				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<label>B</label>
 			</control>
-			<control type="image">
-				<posx>-5</posx>
-				<posy>35</posy>
-				<width>580</width>
-				<height>730</height>
-				<texture>back.png</texture>
-				<bordertexture border="6">panel_shadow.png</bordertexture>
-				<bordersize>5</bordersize>
+			<!--secondary title-->
+			<control type="label" id="102">
+				<left>15</left>
+				<top>90</top>
+				<width>650</width>
+				<height>50</height>
+				<font>kai.secondary</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
 			</control>
-			<control type="panel" id="21">
-				<posx>0</posx>
-				<posy>40</posy>
-				<width>570</width>
-				<height>720</height>
+			<!--page info-->
+			<control type="label">
+				<left>675</left>
+				<top>90</top>
+				<width>200</width>
+				<height>50</height>
+				<font>kai.secondary</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<label>$INFO[Container(21).NumItems] $LOCALIZE[31025] ($LOCALIZE[31024] $INFO[Container(21).CurrentPage]/$INFO[Container(21).NumPages])</label>
+			</control>
+			<control type="list" id="21">
+				<left>10</left>
+				<top>150</top>
+				<width>870</width>
+				<height>630</height>
 				<onleft>20</onleft>
-				<onright>20</onright>
+				<onright>31</onright>
 				<onup>21</onup>
 				<ondown>21</ondown>
-				<viewtype label="">list</viewtype>
-				<pagecontrol>61</pagecontrol>
+				<pagecontrol>31</pagecontrol>
 				<scrolltime>200</scrolltime>
-				<itemlayout height="80" width="570">
-					<control type="image">
-						<posx>5</posx>
-						<posy>5</posy>
-						<width>70</width>
-						<height>70</height>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
-						<aspectratio>keep</aspectratio>
-					</control>
+				<itemlayout height="45" width="870">
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
-						<selectedcolor>selected</selectedcolor>
-						<align>left</align>
+						<left>60</left>
+						<top>0</top>
+						<width>590</width>
+						<font>button</font>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<selectedcolor>selected</selectedcolor>
+						<info>ListItem.Label</info>
 					</control>
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
+						<left>660</left>
+						<top>0</top>
+						<width>195</width>
+						<font>button</font>
+						<aligny>center</aligny>
 						<selectedcolor>selected</selectedcolor>
 						<align>right</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label2]</label>
+						<info>ListItem.Label2</info>
+					</control>
+					<control type="image">
+						<left>6</left>
+						<top>2</top>
+						<width>41</width>
+						<height>41</height>
+						<texture colordiffuse="$INFO[Skin.String(color.500)]">$INFO[ListItem.Icon]</texture>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
 					</control>
 				</itemlayout>
-				<focusedlayout height="80" width="570">
+				<focusedlayout height="45" width="870">
+					<!--background-->
 					<control type="image">
-						<posx>0</posx>
-						<posy>0</posy>
-						<width>570</width>
-						<height>80</height>
-						<texture>list_focus.png</texture>
-						<include>VisibleFadeEffect</include>
-					</control>
-					<control type="image">
-						<posx>5</posx>
-						<posy>5</posy>
-						<width>70</width>
-						<height>70</height>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
-						<aspectratio>keep</aspectratio>
+						<left>0</left>
+						<top>0</top>
+						<width>870</width>
+						<height>45</height>
+						<texture colordiffuse="$INFO[Skin.String(color.500)]">backgrounds/white.png</texture>
+						<animation effect="fade" start="100" end="30" time="100" condition="!Control.HasFocus(21)">Conditional</animation>
 					</control>
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
-						<selectedcolor>selected</selectedcolor>
-						<align>left</align>
+						<left>60</left>
+						<top>0</top>
+						<width>590</width>
+						<font>button</font>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+						<selectedcolor>selected</selectedcolor>
+						<info>ListItem.Label</info>
 					</control>
 					<control type="label">
-						<posx>85</posx>
-						<posy>0</posy>
-						<width>475</width>
-						<height>80</height>
-						<font>font20</font>
+						<left>660</left>
+						<top>0</top>
+						<width>195</width>
+						<font>button</font>
+						<aligny>center</aligny>
+						<textcolor>white</textcolor>
 						<selectedcolor>selected</selectedcolor>
 						<align>right</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label2]</label>
+						<info>ListItem.Label2</info>
+					</control>
+					<control type="image">
+						<left>6</left>
+						<top>2</top>
+						<width>41</width>
+						<height>41</height>
+						<texture colordiffuse="white">$INFO[ListItem.Icon]</texture>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
 					</control>
 				</focusedlayout>
 			</control>
-			<control type="scrollbar" id="61">
-				<posx>587</posx>
-				<posy>70</posy>
-				<width>26</width>
-				<height>660</height>
-				<texturesliderbackground colordiffuse="30FFFFFF">white.png</texturesliderbackground>
-				<texturesliderbar colordiffuse="grey">white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="blue">white.png</texturesliderbarfocus>
-				<textureslidernib>blank.png</textureslidernib>
-				<textureslidernibfocus>blank.png</textureslidernibfocus>
-				<onleft>3</onleft>
-				<onright>3</onright>
-				<ondown>60</ondown>
-				<onup>60</onup>
-				<showonepage>false</showonepage>
+			<control type="scrollbar" id="31">
+				<left>898</left>
+				<top>150</top>
+				<height>630</height>
+				<onleft>21</onleft>
+				<onright>30</onright>
+				<ondown>21</ondown>
+				<onup>21</onup>
 				<orientation>vertical</orientation>
 			</control>
 		</control>
-		<control type="panel" id="9002">
-			<visible>!Window.IsActive(PlayerControls)</visible>
-			<include>VisibleFadeEffect</include>
-			<include>BottomMenuLayout</include>
-			<content>
-				<item>
-					<label>31200</label>
-					<onclick>ParentDir</onclick>
-					<icon>icon_button_back.png</icon>
-				</item>
-				<item>
-					<label>1036</label>
-					<onclick>ActivateWindow(Favourites)</onclick>
-					<icon>icon_button_favourites.png</icon>
-				</item>
-			</content>
-		</control>
+		<include>BehindDialogFadeOut</include>
 	</controls>
 </window>
