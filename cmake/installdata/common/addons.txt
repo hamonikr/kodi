@@ -47,10 +47,7 @@ addons/script.module.six/*
 addons/script.module.typing_extensions/*
 addons/script.module.unidecode/*
 addons/script.module.urllib3/*
-addons/script.skinshortcuts/*
-addons/script.toolbox/*
 addons/resource.language.en_gb/*
-addons/resource.language.ko_kr/*
 addons/resource.uisounds.kodi/*
 addons/resource.images.weathericons.default/*
 addons/service.xbmc.versioncheck/*

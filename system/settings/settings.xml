@@ -3541,7 +3541,7 @@
       <group id="1" label="14218">
         <setting id="locale.language" type="addon" label="248" help="36114">
           <level>0</level>
-          <default>resource.language.ko_kr</default>
+          <default>resource.language.en_gb</default>
           <constraints>
             <addontype>kodi.resource.language</addontype>
           </constraints>

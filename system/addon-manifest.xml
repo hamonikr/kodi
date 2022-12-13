@@ -40,7 +40,6 @@
   <addon>repository.xbmc.org</addon>
   <addon>resource.images.weathericons.default</addon>
   <addon>resource.language.en_gb</addon>
-  <addon>resource.language.ko_kr</addon>
   <addon>resource.uisounds.kodi</addon>
   <addon>screensaver.xbmc.builtin.black</addon>
   <addon>screensaver.xbmc.builtin.dim</addon>
@@ -68,8 +67,6 @@
   <addon>script.module.typing_extensions</addon>                    
   <addon>script.module.unidecode</addon>                    
   <addon>script.module.urllib3</addon>          
-  <addon>script.skinshortcuts</addon>          
-  <addon>script.toolbox</addon>          
   <addon optional="true">service.xbmc.versioncheck</addon>
   <addon>skin.amber</addon>
   <addon>skin.estuary</addon>
