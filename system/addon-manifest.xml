@@ -40,14 +40,44 @@
   <addon>repository.xbmc.org</addon>
   <addon>resource.images.weathericons.default</addon>
   <addon>resource.language.en_gb</addon>
+  <addon>resource.language.ko_kr</addon>
   <addon>resource.uisounds.kodi</addon>
   <addon>screensaver.xbmc.builtin.black</addon>
   <addon>screensaver.xbmc.builtin.dim</addon>
+  <addon>script.embuary.helper</addon>          
+  <addon>script.embuary.info</addon>          
+  <addon>script.favourites</addon>          
+  <addon>script.globalsearch</addon>          
+  <addon>script.image.resource.select</addon>          
+  <addon>script.module.addon.signals</addon>
+  <addon>script.module.arrow</addon>
+  <addon>script.module.autocompletion</addon>
+  <addon>script.module.certifi</addon>
+  <addon>script.module.chardet</addon>
+  <addon>script.module.dateutil</addon>
+  <addon>script.module.future</addon>
+  <addon>script.module.idna</addon>
   <addon>script.module.pil</addon>
   <addon>script.module.pycryptodome</addon>
+  <addon>script.module.requests</addon>
+  <addon>script.module.routing</addon>
+  <addon>script.module.simplecache</addon>
+  <addon>script.module.simpleeval</addon>
+  <addon>script.module.simpleplugin3</addon>                    
+  <addon>script.module.six</addon>                    
+  <addon>script.module.typing_extensions</addon>                    
+  <addon>script.module.unidecode</addon>                    
+  <addon>script.module.urllib3</addon>          
+  <addon>script.skinshortcuts</addon>          
+  <addon>script.toolbox</addon>          
   <addon optional="true">service.xbmc.versioncheck</addon>
+  <addon>skin.amber</addon>
   <addon>skin.estuary</addon>
   <addon>skin.estouchy</addon>
+  <addon>skin.eminence.2</addon>
+  <addon>skin.hamonikr</addon>
+  <addon>weather.gismeteo</addon>
+  <addon>weather.noaa</addon>
   <addon>webinterface.default</addon>
   <addon>xbmc.addon</addon>
   <addon>xbmc.core</addon>
@@ -59,3 +89,4 @@
   <addon optional="true">peripheral.joystick</addon>
   <addon optional="true">inputstream.adaptive</addon>
 </addons>
+

@@ -284,6 +284,9 @@ copy_files_from_filelist_to_buildtree(${CMAKE_SOURCE_DIR}/cmake/installdata/comm
 
 list(APPEND SKINS "${CMAKE_SOURCE_DIR}/addons/skin.estuary\;${CMAKE_SOURCE_DIR}")
 list(APPEND SKINS "${CMAKE_SOURCE_DIR}/addons/skin.estouchy\;${CMAKE_SOURCE_DIR}")
+list(APPEND SKINS "${CMAKE_SOURCE_DIR}/addons/skin.amber\;${CMAKE_SOURCE_DIR}")
+list(APPEND SKINS "${CMAKE_SOURCE_DIR}/addons/skin.eminence.2\;${CMAKE_SOURCE_DIR}")
+list(APPEND SKINS "${CMAKE_SOURCE_DIR}/addons/skin.hamonikr\;${CMAKE_SOURCE_DIR}")
 
 # These are skins that are copied into place from the source tree
 foreach(skin ${SKINS})
