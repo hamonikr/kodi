@@ -1,3 +1,40 @@
+kodi (6:19.4+2hamonikr) taebaek; urgency=medium
+
+  [ Kevin Kim ]
+  * Added useful addon and skins
+   - script.embuary.helper
+   - script.embuary.info
+   - script.favourites
+   - script.globalsearch
+   - script.module.addon.signals
+   - script.module.arrow
+   - script.module.autocompletion
+   - script.module.certifi
+   - script.module.chardet
+   - script.module.dateutil
+   - script.module.future
+   - script.module.idna
+   - script.module.requests
+   - script.module.routing
+   - script.module.simplecache
+   - script.module.simpleeval
+   - script.module.simpleplugin3
+   - script.module.six
+   - script.module.typing_extensions
+   - script.module.unidecode
+   - script.module.urllib3
+   - script.skinshortcuts
+   - script.toolbox
+   - skin.amber
+   - skin.eminence.2
+   - skin.ftv
+   - weather.gismeteo
+   - weather.noaa
+  * Add Korean Transaltion for eminence skin
+   - addons/skin.eminence.2/language/resource.language.ko_kr
+  
+ -- HamoniKR <pkg@hamonikr.org>  Mon, 12 Dec 2022 12:18:47 +0900
+
 kodi (6:19.4+1hamonikr) taebaek; urgency=medium
 
   [ Kevin Kim ]
