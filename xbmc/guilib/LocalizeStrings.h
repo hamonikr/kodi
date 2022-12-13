@@ -32,10 +32,10 @@ struct LocStr
 };
 
 // The default fallback language is fixed to be English
-// const std::string LANGUAGE_DEFAULT = "resource.language.en_gb";
-// const std::string LANGUAGE_OLD_DEFAULT = "English";
-const std::string LANGUAGE_DEFAULT = "resource.language.ko_kr";
-const std::string LANGUAGE_OLD_DEFAULT = "Korean";
+const std::string LANGUAGE_DEFAULT = "resource.language.en_gb";
+const std::string LANGUAGE_OLD_DEFAULT = "English";
+// const std::string LANGUAGE_DEFAULT = "resource.language.ko_kr";
+// const std::string LANGUAGE_OLD_DEFAULT = "Korean";
 
 class CLocalizeStrings : public ILocalizer
 {
