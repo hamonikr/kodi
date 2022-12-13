@@ -67,4 +67,5 @@
       <thousandsseparator groupingformat="\3">,</thousandsseparator>
       <decimalseparator>.</decimalseparator>
     </region>
+  </regions>    
 </language>
