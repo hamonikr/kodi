@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="skin.hamonikr" version="1.1.72" name="HamoniKR" provider-name="HamoniKR Team">
+    <requires>
+        <import addon="xbmc.gui" version="5.15.0"/>
+        <import addon="script.skinshortcuts" version="0.4.0"/>
+        <import addon="script.globalsearch" version="5.0.0"/>
+        <import addon="script.image.resource.select" version="0.0.5"/>
+        <import addon="resource.images.weathericons.white" version="0.0.6"/>
+        <import addon="script.skin.helper.colorpicker" version="1.0.11"/>
+        <import addon="script.embuary.info" version="0.0.1"/>
+        <import addon="script.embuary.helper" version="1.2.14"/>
+        <import addon="plugin.video.themoviedb.helper" version="0.0.1"/>
+    </requires>
+    <extension point="xbmc.gui.skin" defaultthemename="Textures.xbt" debugging="false" effectslowdown="1">
+        <res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <license>Creative Commons Non Commercial 3.0 License</license>
+        <forum>https://forum.kodi.tv/showthread.php?tid=337862</forum>
+        <source>https://github.com/beatmasterRS/skin.arctic.zephyr.mod</source>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+            <screenshot>resources/screenshot-01.jpg</screenshot>
+            <screenshot>resources/screenshot-02.jpg</screenshot>
+            <screenshot>resources/screenshot-03.jpg</screenshot>
+            <screenshot>resources/screenshot-04.jpg</screenshot>
+            <screenshot>resources/screenshot-05.jpg</screenshot>
+            <screenshot>resources/screenshot-06.jpg</screenshot>
+            <screenshot>resources/screenshot-07.jpg</screenshot>
+            <screenshot>resources/screenshot-08.jpg</screenshot>
+            <screenshot>resources/screenshot-09.jpg</screenshot>
+            <screenshot>resources/screenshot-10.jpg</screenshot>
+        </assets>
+        <news>1.1.72[CR]- Add Korean font[CR]- Merge from upstream(skin.arctic.zephyr.mod)[CR][CR]</news>
+        <summary lang="en">Clean, minimal, elegant, simple, light. Based on the original Arctic: Zephyr skin by jurialmunkey.</summary>
+        <summary lang="en_US">Clean, minimal, elegant, simple, light. Based on the original Arctic: Zephyr skin by jurialmunkey.</summary>
+        <summary lang="ko_KR">하모니카 Kodi 스킨 - original Arctic: Zephyr skin</summary>        
+        <description lang="en">Arctic: Zephyr - Reloaded is based on original Arctic: Zephyr skin, created by jurialmunkey. Arctic focuses on being simple, clean and minimalistic with a light spin.</description>
+        <description lang="en_US">Arctic: Zephyr - Reloaded is based on original Arctic: Zephyr skin, created by jurialmunkey. Arctic focuses on being simple, clean and minimalistic with a light spin.</description>
+        <description lang="ko_KR">Arctic: Zephyr - Reloaded 스킨을 기본으로 한글 사용자 설정을 적용한 버전</description>
+    </extension>
+</addon>
