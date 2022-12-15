@@ -25,7 +25,7 @@ def get_details(uniqueids, clientkey, language, set_tmdbid):
         return {}
 
     movie_data = _get_data(media_id, clientkey)
-    movieset_data = _get_data(set_tmdbid, clientkey)
+    movieset_data = _get_data(set_tmdbid, clientkey) if set_tmdbid else None
     if not movie_data and not movieset_data:
         return {}
 
@@ -55,14 +55,14 @@ def _get_data(media_id, clientkey):
     fanarttv_url = API_URL.format(media_id)
     return api_utils.load_info(fanarttv_url, default={})
 
-def _parse_data(data, language):
+def _parse_data(data, language, language_fallback='en'):
     result = {}
     for arttype, artlist in data.items():
         if arttype not in ARTMAP:
             continue
         for image in artlist:
             image_lang = _get_imagelanguage(arttype, image)
-            if image_lang and image_lang != language:
+            if image_lang and image_lang != language and image_lang != language_fallback:
                 continue
 
             generaltype = ARTMAP[arttype]
@@ -72,7 +72,7 @@ def _parse_data(data, language):
                 result[generaltype] = []
 
             url = quote(image['url'], safe="%/:=&?~#+!$,;'@()*[]")
-            resultimage = {'url': url, 'preview': url.replace('.fanart.tv/fanart/', '.fanart.tv/preview/')}
+            resultimage = {'url': url, 'preview': url.replace('.fanart.tv/fanart/', '.fanart.tv/preview/'), 'lang': image_lang}
             result[generaltype].append(resultimage)
 
     return result

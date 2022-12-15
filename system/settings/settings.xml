@@ -3541,7 +3541,7 @@
       <group id="1" label="14218">
         <setting id="locale.language" type="addon" label="248" help="36114">
           <level>0</level>
-          <default>resource.language.en_gb</default>
+          <default>resource.language.ko_kr</default>
           <constraints>
             <addontype>kodi.resource.language</addontype>
           </constraints>
@@ -3551,7 +3551,7 @@
         </setting>
         <setting id="locale.charset" type="string" label="14091" help="36116">
           <level>1</level>
-          <default>DEFAULT</default>
+          <default>CP949</default>
           <constraints>
             <options>charsets</options>
           </constraints>
@@ -3562,7 +3562,7 @@
         </setting>
         <setting id="locale.keyboardlayouts" type="list[string]" label="310" help="36432">
           <level>0</level>
-          <default>English QWERTY</default>
+          <default>English QWERTY|Korean ㄱㄴㄷ</default>
           <constraints>
             <options>keyboardlayouts</options>
             <delimiter>|</delimiter>
@@ -3581,7 +3581,7 @@
       <group id="2" label="14270">
         <setting id="locale.country" type="string" label="14271" help="36115">
           <level>0</level>
-          <default>USA (12h)</default>
+          <default>Korea (12h)</default>
           <constraints>
             <options>regions</options>
           </constraints>
@@ -3592,7 +3592,7 @@
         </setting>
         <setting id="locale.timezonecountry" type="string" label="14079" help="36117">
           <level>1</level>
-          <default>default</default> <!-- will be properly set on startup -->
+          <default>Korea (South)</default> <!-- will be properly set on startup -->
           <constraints>
             <options>timezonecountries</options>
           </constraints>
@@ -3600,7 +3600,7 @@
         </setting>
         <setting id="locale.timezone" type="string" label="14080" help="36118">
           <level>1</level>
-          <default>default</default> <!-- will be properly set on startup -->
+          <default>Asia/Seoul</default> <!-- will be properly set on startup -->
           <constraints>
             <options>timezones</options>
           </constraints>

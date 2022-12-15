@@ -22,10 +22,11 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import re, json
+import re
+import json
 from collections import OrderedDict, namedtuple
 from .utils import safe_get, logger
-from . import settings
+from . import settings, api_utils
 
 try:
     from typing import Optional, Text, Dict, List, Any  # pylint: disable=unused-import
@@ -34,17 +35,28 @@ try:
 except ImportError:
     pass
 
+TMDB_PARAMS = {'api_key': settings.TMDB_CLOWNCAR, 'language': settings.LANG}
+BASE_URL = 'https://api.themoviedb.org/3/{}'
+FIND_URL = BASE_URL.format('find/{}')
 TAG_RE = re.compile(r'<[^>]+>')
+
+# Regular expressions are listed in order of priority.
+# "TMDB" provider is preferred than other providers (IMDB and TheTVDB),
+# because external providers IDs need to be converted to TMDB_ID.
 SHOW_ID_REGEXPS = (
-    r'(tvmaze)\.com/shows/(\d+)/[\w\-]',
-    r'(thetvdb)\.com/.*?series/(\d+)',
-    r'(thetvdb)\.com[\w=&\?/]+id=(\d+)',
-    r'(imdb)\.com/[\w/\-]+/(tt\d+)',
-    r'(themoviedb)\.org/tv/(\d+).*/episode_group/(.*)',
-    r'(themoviedb)\.org/tv/(\d+)',
-    r'(themoviedb)\.org/./tv/(\d+)',
-    r'(tmdb)\.org/./tv/(\d+)'
+    r'(themoviedb)\.org/tv/(\d+).*/episode_group/(.*)',   # TMDB_http_link
+    r'(themoviedb)\.org/tv/(\d+)',                        # TMDB_http_link
+    r'(themoviedb)\.org/./tv/(\d+)',                      # TMDB_http_link
+    r'(tmdb)\.org/./tv/(\d+)',                            # TMDB_http_link
+    r'(imdb)\.com/.+/(tt\d+)',                            # IMDB_http_link
+    r'(thetvdb)\.com.+&id=(\d+)',                         # TheTVDB_http_link
+    r'(thetvdb)\.com/series/(\d+)',                       # TheTVDB_http_link
+    r'(thetvdb)\.com/api/.*series/(\d+)',                 # TheTVDB_http_link
+    r'(thetvdb)\.com/.*?"id":(\d+)',                      # TheTVDB_http_link
+    r'<uniqueid.+?type="(tvdb|imdb)".*?>([t\d]+?)</uniqueid>'
 )
+
+
 SUPPORTED_ARTWORK_TYPES = {'poster', 'banner'}
 IMAGE_SIZES = ('large', 'original', 'medium')
 CLEAN_PLOT_REPLACEMENTS = (
@@ -56,8 +68,8 @@ CLEAN_PLOT_REPLACEMENTS = (
 )
 VALIDEXTIDS = ['tmdb_id', 'imdb_id', 'tvdb_id']
 
-UrlParseResult = namedtuple('UrlParseResult', ['provider', 'show_id', 'ep_grouping'])
-
+UrlParseResult = namedtuple(
+    'UrlParseResult', ['provider', 'show_id', 'ep_grouping'])
 
 
 def _clean_plot(plot):
@@ -96,7 +108,8 @@ def _get_credits(show_info):
     for item in show_info.get('created_by', []):
         credits.append(item['name'])
     for item in show_info.get('credits', {}).get('crew', []):
-        isWriter = item.get('job', '').lower() == 'writer' or item.get('department', '').lower() == 'writing'
+        isWriter = item.get('job', '').lower() == 'writer' or item.get(
+            'department', '').lower() == 'writing'
         if isWriter and item.get('name') not in credits:
             credits.append(item['name'])
     return credits
@@ -125,16 +138,20 @@ def _set_unique_ids(ext_ids, list_item):
 
 
 def _set_rating(the_info, list_item, episode=False):
-    # type: (InfoType, ListItem) -> ListItem
+    # type: (InfoType, ListItem, bool) -> ListItem
     """Set show/episode rating"""
     first = True
     for rating_type in settings.RATING_TYPES:
         logger.debug('adding rating type of %s' % rating_type)
-        rating = float(the_info.get('ratings', {}).get(rating_type, {}).get('rating', '0'))
-        votes = int(the_info.get('ratings', {}).get(rating_type, {}).get('votes', '0'))
-        logger.debug("adding rating of %s and votes of %s" % (str(rating), str(votes)))
+        rating = float(the_info.get('ratings', {}).get(
+            rating_type, {}).get('rating', '0'))
+        votes = int(the_info.get('ratings', {}).get(
+            rating_type, {}).get('votes', '0'))
+        logger.debug("adding rating of %s and votes of %s" %
+                     (str(rating), str(votes)))
         if rating > 0:
-            list_item.setRating(rating_type, rating, votes=votes, defaultt=first)
+            list_item.setRating(rating_type, rating,
+                                votes=votes, defaultt=first)
             first = False
     return list_item
 
@@ -143,8 +160,10 @@ def _add_season_info(show_info, list_item):
     # type: (InfoType, ListItem) -> ListItem
     """Add info for show seasons"""
     for season in show_info['seasons']:
-        logger.debug('adding information for season %s to list item' % season['season_number'])
-        list_item.addSeason(season['season_number'], safe_get(season, 'name', ''))
+        logger.debug('adding information for season %s to list item' %
+                     season['season_number'])
+        list_item.addSeason(season['season_number'],
+                            safe_get(season, 'name', ''))
         for image_type, image_list in season.get('images', {}).items():
             if image_type == 'posters':
                 destination = 'poster'
@@ -153,18 +172,25 @@ def _add_season_info(show_info, list_item):
             for image in image_list:
                 if image.get('type') == 'fanarttv':
                     theurl = image['file_path']
-                    previewurl = theurl.replace('.fanart.tv/fanart/', '.fanart.tv/preview/')
+                    previewurl = theurl.replace(
+                        '.fanart.tv/fanart/', '.fanart.tv/preview/')
                 else:
                     theurl = settings.IMAGEROOTURL + image['file_path']
                     previewurl = settings.PREVIEWROOTURL + image['file_path']
-                list_item.addAvailableArtwork(theurl, art_type=destination, preview=previewurl, season=season['season_number'])
+                list_item.addAvailableArtwork(
+                    theurl, art_type=destination, preview=previewurl, season=season['season_number'])
     return list_item
 
 
-def get_image_urls( image ):
+def get_image_urls(image):
+    # type: (Dict) -> Tuple[Text, Text]
+    """Get image URLs from image information"""
+    if image.get('file_path', '').endswith('.svg'):
+        return None, None
     if image.get('type') == 'fanarttv':
         theurl = image['file_path']
-        previewurl = theurl.replace('.fanart.tv/fanart/', '.fanart.tv/preview/')
+        previewurl = theurl.replace(
+            '.fanart.tv/fanart/', '.fanart.tv/preview/')
     else:
         theurl = settings.IMAGEROOTURL + image['file_path']
         previewurl = settings.PREVIEWROOTURL + image['file_path']
@@ -178,25 +204,26 @@ def set_show_artwork(show_info, list_item):
         if image_type == 'backdrops':
             fanart_list = []
             for image in image_list:
-                if image.get('type') == 'fanarttv':
-                    theurl = image['file_path']
-                else:
-                    theurl = settings.IMAGEROOTURL + image['file_path']
-                if image.get('iso_639_1') != None and settings.CATLANDSCAPE:
-                    theurl, previewurl = get_image_urls( image )
-                    list_item.addAvailableArtwork(theurl, art_type="landscape", preview=previewurl)
-                else:
+                theurl, previewurl = get_image_urls(image)
+                if image.get('iso_639_1') != None and settings.CATLANDSCAPE and theurl:
+                    list_item.addAvailableArtwork(
+                        theurl, art_type="landscape", preview=previewurl)
+                elif theurl:
                     fanart_list.append({'image': theurl})
             if fanart_list:
                 list_item.setAvailableFanart(fanart_list)
         else:
             if image_type == 'posters':
                 destination = 'poster'
+            elif image_type == 'logos':
+                destination = 'clearlogo'
             else:
                 destination = image_type
             for image in image_list:
-                theurl, previewurl = get_image_urls( image )
-                list_item.addAvailableArtwork(theurl, art_type=destination, preview=previewurl)
+                theurl, previewurl = get_image_urls(image)
+                if theurl:
+                    list_item.addAvailableArtwork(
+                        theurl, art_type=destination, preview=previewurl)
     return list_item
 
 
@@ -236,10 +263,14 @@ def add_main_show_info(list_item, show_info, full_info=True):
         else:
             network = None
             country = None
-        if network and country:
+        if network and country and settings.STUDIOCOUNTRY:
             video['studio'] = '{0} ({1})'.format(network['name'], country)
+        elif network:
+            video['studio'] = network['name']
+        if country:
             video['country'] = country
-        content_ratings = show_info.get('content_ratings', {}).get('results', {})
+        content_ratings = show_info.get(
+            'content_ratings', {}).get('results', {})
         if content_ratings:
             mpaa = ''
             mpaa_backup = ''
@@ -254,20 +285,27 @@ def add_main_show_info(list_item, show_info, full_info=True):
             if mpaa:
                 video['Mpaa'] = settings.CERT_PREFIX + mpaa
         video['credits'] = video['writer'] = _get_credits(show_info)
+        if settings.ENABTRAILER:
+            trailer = _parse_trailer(show_info.get(
+                'videos', {}).get('results', {}))
+            if trailer:
+                video['trailer'] = trailer
         list_item = set_show_artwork(show_info, list_item)
         list_item = _add_season_info(show_info, list_item)
         list_item = _set_cast(show_info['credits']['cast'], list_item)
         list_item = _set_rating(show_info, list_item)
         ext_ids = {'tmdb_id': show_info['id']}
         ext_ids.update(show_info.get('external_ids', {}))
-        list_item =  _set_unique_ids(ext_ids, list_item)
+        list_item = _set_unique_ids(ext_ids, list_item)
     else:
         image = safe_get(show_info, 'poster_path', '')
         if image:
             theurl = settings.IMAGEROOTURL + image
             previewurl = settings.PREVIEWROOTURL + image
-            list_item.addAvailableArtwork(theurl, art_type='poster', preview=previewurl)
-    logger.debug('adding tv show information for %s to list item' % video['tvshowtitle'])
+            list_item.addAvailableArtwork(
+                theurl, art_type='poster', preview=previewurl)
+    logger.debug('adding tv show information for %s to list item' %
+                 video['tvshowtitle'])
     list_item.setInfo('video', video)
     # This is needed for getting artwork
     list_item = _set_unique_ids(show_info, list_item)
@@ -291,7 +329,11 @@ def add_episode_info(list_item, episode_info, full_info=True):
             video['plot'] = video['plotoutline'] = _clean_plot(summary)
         if safe_get(episode_info, 'air_date') is not None:
             video['premiered'] = episode_info['air_date']
-        list_item = _set_cast(episode_info['credits']['guest_stars'], list_item)
+        duration = episode_info.get('runtime')
+        if duration:
+            video['duration'] = int(duration) * 60
+        list_item = _set_cast(
+            episode_info['season_cast'] + episode_info['credits']['guest_stars'], list_item)
         ext_ids = {'tmdb_id': episode_info['id']}
         ext_ids.update(episode_info.get('external_ids', {}))
         list_item = _set_unique_ids(ext_ids, list_item)
@@ -301,10 +343,12 @@ def add_episode_info(list_item, episode_info, full_info=True):
             if img_path:
                 theurl = settings.IMAGEROOTURL + img_path
                 previewurl = settings.PREVIEWROOTURL + img_path
-                list_item.addAvailableArtwork(theurl, art_type='thumb', preview=previewurl)
+                list_item.addAvailableArtwork(
+                    theurl, art_type='thumb', preview=previewurl)
         video['credits'] = video['writer'] = _get_credits(episode_info)
         video['director'] = _get_directors(episode_info)
-    logger.debug('adding episode information for S%sE%s - %s to list item' % (video['season'], video['episode'], video['title']))
+    logger.debug('adding episode information for S%sE%s - %s to list item' %
+                 (video['season'], video['episode'], video['title']))
     list_item.setInfo('video', video)
     return list_item
 
@@ -316,6 +360,7 @@ def parse_nfo_url(nfo):
     ns_regex = r'<namedseason number="(.*)">(.*)</namedseason>'
     ns_match = re.findall(ns_regex, nfo, re.I)
     sid_match = None
+    ep_grouping = None
     for regexp in SHOW_ID_REGEXPS:
         logger.debug('trying regex to match service from parsing nfo:')
         logger.debug(regexp)
@@ -323,27 +368,80 @@ def parse_nfo_url(nfo):
         if show_id_match:
             logger.debug('match group 1: ' + show_id_match.group(1))
             logger.debug('match group 2: ' + show_id_match.group(2))
-            try:
-                ep_grouping = show_id_match.group(3)
-            except IndexError:
-                ep_grouping = None
-            if ep_grouping is not None:
-                logger.debug('match group 3: ' + ep_grouping)
+            if show_id_match.group(1) == "themoviedb" or show_id_match.group(1) == "tmdb":
+                try:
+                    ep_grouping = show_id_match.group(3)
+                except IndexError:
+                    pass
+                tmdb_id = show_id_match.group(2)
             else:
-                logger.debug('match group 3: None')
-            sid_match = UrlParseResult(show_id_match.group(1), show_id_match.group(2), ep_grouping)
-            break
+                tmdb_id = _convert_ext_id(
+                    show_id_match.group(1), show_id_match.group(2))
+            if tmdb_id:
+                logger.debug('match group 3: ' + str(ep_grouping))
+                sid_match = UrlParseResult('themoviedb', tmdb_id, ep_grouping)
+                break
     return sid_match, ns_match
+
+
+def _convert_ext_id(ext_provider, ext_id):
+    providers_dict = {'imdb': 'imdb_id',
+                      'thetvdb': 'tvdb_id',
+                      'tvdb': 'tvdb_id'}
+    show_url = FIND_URL.format(ext_id)
+    params = TMDB_PARAMS.copy()
+    params['external_source'] = providers_dict[ext_provider]
+    show_info = api_utils.load_info(show_url, params=params)
+    if show_info:
+        tv_results = show_info.get('tv_results')
+        if tv_results:
+            return tv_results[0].get('id')
+    return None
 
 
 def parse_media_id(title):
     title = title.lower()
     if title.startswith('tt') and title[2:].isdigit():
-        return {'type': 'imdb_id', 'title': title} # IMDB ID works alone because it is clear
-    elif title.startswith('imdb/tt') and title[7:].isdigit(): # IMDB ID with prefix to match
-        return {'type': 'imdb_id', 'title': title[5:]} # IMDB ID works alone because it is clear
-    elif title.startswith('tmdb/') and title[5:].isdigit(): # TVDB ID
+        # IMDB ID works alone because it is clear
+        return {'type': 'imdb_id', 'title': title}
+    # IMDB ID with prefix to match
+    elif title.startswith('imdb/tt') and title[7:].isdigit():
+        # IMDB ID works alone because it is clear
+        return {'type': 'imdb_id', 'title': title[5:]}
+    elif title.startswith('tmdb/') and title[5:].isdigit():  # TMDB ID
         return {'type': 'tmdb_id', 'title': title[5:]}
-    elif title.startswith('tvdb/') and title[5:].isdigit(): # TVDB ID
+    elif title.startswith('tvdb/') and title[5:].isdigit():  # TVDB ID
         return {'type': 'tvdb_id', 'title': title[5:]}
     return None
+
+
+def _parse_trailer(results):
+    if results:
+        if settings.PLAYERSOPT == 'tubed':
+            addon_player = 'plugin://plugin.video.tubed/?mode=play&video_id='
+        elif settings.PLAYERSOPT == 'youtube':
+            addon_player = 'plugin://plugin.video.youtube/?action=play_video&videoid='
+        backup_keys = []
+        for video_lang in [settings.LANG[0:2], 'en']:
+            for result in results:
+                if result.get('site') == 'YouTube' and result.get('iso_639_1') == video_lang:
+                    key = result.get('key')
+                    if result.get('type') == 'Trailer':
+                        if _check_youtube(key):
+                            # video is available and is defined as "Trailer" by TMDB. Perfect link!
+                            return addon_player+key
+                    else:
+                        # video is available, but NOT defined as "Trailer" by TMDB. Saving it as backup in case it doesn't find any perfect link.
+                        backup_keys.append(key)
+            for keybackup in backup_keys:
+                if _check_youtube(keybackup):
+                    return addon_player+keybackup
+    return None
+
+
+def _check_youtube(key):
+    chk_link = "https://www.youtube.com/watch?v="+key
+    check = api_utils.load_info(chk_link, resp_type='not_json')
+    if not check or "Video unavailable" in check:       # video not available
+        return False
+    return True
