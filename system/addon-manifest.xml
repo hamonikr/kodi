@@ -58,8 +58,5 @@
   <addon>xbmc.webinterface</addon>
   <addon optional="true">peripheral.joystick</addon>
   <addon optional="true">inputstream.adaptive</addon>
-
   <addon>resource.language.ko_kr</addon>
-  <addon>skin.hamonikr</addon>
-  
 </addons>
